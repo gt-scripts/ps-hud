@@ -187,7 +187,7 @@ local function restartHud()
     TriggerEvent("hud:client:playResetHudSounds")
     QBCore.Functions.Notify(Lang:t("notify.hud_restart"), "error")
     Wait(1500)
-    if IsPedInAnyVehicle(PlayerPedId()) then
+    if Config.VehicleEnabled and IsPedInAnyVehicle(PlayerPedId()) then
         SendNUIMessage({
             action = 'car',
             topic = 'display',
@@ -198,7 +198,7 @@ local function restartHud()
         SendNUIMessage({
             action = 'car',
             topic = 'display',
-            show = true,
+            show = Config.VehicleEnabled,
             seatbelt = false,
         })
     end
@@ -837,7 +837,7 @@ local function updateVehicleHud(data)
         SendNUIMessage({
             action = 'car',
             topic = 'status',
-            show = data[1],
+            show = Config.VehicleEnabled and data[1],
             isPaused = data[2],
             seatbelt = data[3],
             speed = data[4],
@@ -847,6 +847,7 @@ local function updateVehicleHud(data)
             showSeatbelt = data[8],
             showSquareB = data[9],
             showCircleB = data[10],
+            useMPH = Config.useMPH,
         })
     end
 end
