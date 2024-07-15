@@ -16,7 +16,7 @@ local thirst = 100
 local cashAmount = 0
 local bankAmount = 0
 local nitroActive = 0
-local harness = 0
+local harness = false
 local hp = 100
 local armed = 0
 local parachute = -1
@@ -77,15 +77,9 @@ local function hasHarness()
     local ped = PlayerPedId()
     if not IsPedInAnyVehicle(ped, false) then return end
 
-    local _harness = false
-    local hasHarness = exports['qb-smallresources']:HasHarness()
-    if hasHarness then
-        _harness = true
-    else
-        _harness = false
+    if GetResourceState('qb-smallresources') == 'started' then
+        harness = exports['qb-smallresources']:HasHarness() or false
     end
-
-    harness = _harness
 end
 
 local function loadSettings()
