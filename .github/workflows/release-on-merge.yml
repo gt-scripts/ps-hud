@@ -21,13 +21,12 @@ jobs:
       - name: Install PNPM
         run: npm install -g pnpm
 
-      - name: Enter frontend directory
-        run: cd svelte-source
-
       - name: Install dependencies
+        working-directory: ./svelte-source
         run: pnpm i
 
       - name: Build project
+        working-directory: ./svelte-source
         run: pnpm build
 
       - name: Get version from file
