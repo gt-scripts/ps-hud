@@ -56,6 +56,25 @@ local Menu = {
 
 DisplayRadar(false)
 
+local function GetFuel(vehicle)
+    if Config.FuelScript == 'LegacyFuel' then
+        return exports["LegacyFuel"]:GetFuel(vehicle)
+    elseif Config.FuelScript == 'ox-fuel' then
+        return GetVehicleFuelLevel(vehicle)
+    elseif Config.FuelScript == 'nd-fuel' then
+        return exports["nd-fuel"]:GetFuel(vehicle)
+    elseif Config.FuelScript == 'frfuel' then
+        return exports.frfuel:getCurrentFuelLevel(vehicle)
+    elseif Config.FuelScript == 'cdn-fuel' then
+        return exports['cdn-fuel']:GetFuel(vehicle)
+    elseif Config.FuelScript == 'x-fuel' then
+        return exports['x-fuel']:GetFuel(vehicle)
+    else
+        -- You can added export if you want it
+        return GetVehicleFuelLevel(vehicle)
+    end
+end
+
 local function CinematicShow(bool)
     SetRadarBigmapEnabled(true, false)
     Wait(0)
@@ -880,7 +899,7 @@ local function getFuelLevel(vehicle)
     local updateTick = GetGameTimer()
     if (updateTick - lastFuelUpdate) > 2000 then
         lastFuelUpdate = updateTick
-        lastFuelCheck = math.floor(exports[Config.FuelScript]:GetFuel(vehicle))
+        lastFuelCheck = math.floor(GetFuel(vehicle))
     end
     return lastFuelCheck
 end
@@ -1059,7 +1078,7 @@ CreateThread(function()
         if LocalPlayer.state.isLoggedIn then
             local ped = PlayerPedId()
             if IsPedInAnyVehicle(ped, false) and not IsThisModelABicycle(GetEntityModel(GetVehiclePedIsIn(ped, false))) and not isElectric(GetVehiclePedIsIn(ped, false)) then
-                if exports[Config.FuelScript]:GetFuel(GetVehiclePedIsIn(ped, false)) <= 20 then -- At 20% Fuel Left
+                if GetFuel(GetVehiclePedIsIn(ped, false)) <= 20 then -- At 20% Fuel Left
                     if Menu.isLowFuelChecked then
                         TriggerServerEvent("InteractSound_SV:PlayOnSource", "pager", 0.10)
                         QBCore.Functions.Notify(Lang:t("notify.low_fuel"), "error")
