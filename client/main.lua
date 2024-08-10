@@ -57,20 +57,19 @@ local Menu = {
 DisplayRadar(false)
 
 local function GetFuel(vehicle)
-    if Config.FuelScript == 'LegacyFuel' then
+    if GetResourceState('LegacyFuel') == 'started' then
         return exports["LegacyFuel"]:GetFuel(vehicle)
-    elseif Config.FuelScript == 'ox-fuel' then
+    elseif GetResourceState('ox-fuel') == 'started' then
         return GetVehicleFuelLevel(vehicle)
-    elseif Config.FuelScript == 'nd-fuel' then
+    elseif GetResourceState('nd-fuel') == 'started' then
         return exports["nd-fuel"]:GetFuel(vehicle)
-    elseif Config.FuelScript == 'frfuel' then
+    elseif GetResourceState('frfuel') == 'started' then
         return exports.frfuel:getCurrentFuelLevel(vehicle)
-    elseif Config.FuelScript == 'cdn-fuel' then
+    elseif GetResourceState('cdn-fuel') == 'started' then
         return exports['cdn-fuel']:GetFuel(vehicle)
-    elseif Config.FuelScript == 'x-fuel' then
+    elseif GetResourceState('x-fuel') == 'started' then
         return exports['x-fuel']:GetFuel(vehicle)
     else
-        -- You can added export if you want it
         return GetVehicleFuelLevel(vehicle)
     end
 end

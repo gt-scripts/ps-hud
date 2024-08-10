@@ -7,7 +7,6 @@ Config.MinimumStress = 50 -- Minimum Stress Level For Screen Shaking
 Config.MinimumSpeedUnbuckled = 50 -- Going Over This Speed Will Cause Stress
 Config.MinimumSpeed = 100 -- Going Over This Speed Will Cause Stress
 Config.DisablePoliceStress = false -- Default: false, If true will disable stress for people with the police job
-Config.FuelScript = 'LegacyFuel' -- change to lj-fuel if you use lj-fuel or something else if you use any other LegcyFuel compatible script
 Config.VehicleEnabled = true -- Enable/Disable the vehicle portion of the HUD (this allows you to use a custom speedometer)
 
 -- Admin only to change hud icons/shapes
